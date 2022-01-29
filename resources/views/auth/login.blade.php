@@ -4,7 +4,7 @@
   <div class="container mx-auto">
     <div class="flex flex-wrap justify-center">
       <div class="w-full max-w-sm">
-        <div class="flex flex-col break-words bg-white border-2 shadow-lg mt-20">
+        <div class="flex flex-col break-words bg-white border-8 rounded-lg shadow-lg mt-20">
           <div class="bg-gray-300 text-gray-700 uppercase text-center py-3 px-6 mb-0">
             {{ __('Login') }}
           </div>
