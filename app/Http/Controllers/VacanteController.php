@@ -22,7 +22,7 @@ class VacanteController extends Controller
     public function index()
     {
         //
-        return 'desde VacanteController@index';
+        return view('vacantes.index');
     }
 
     /**
