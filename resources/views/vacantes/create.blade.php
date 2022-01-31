@@ -64,7 +64,7 @@
         <option
           disabled
           selected
-        >-- SELECCIONA UNA CATEGORIA --</option>
+        >-- SELECCIONA --</option>
         @foreach($experiencias as $experiencia)
           <option value="{{ $experiencia->id }}">
             {{ $experiencia->nombre }}
