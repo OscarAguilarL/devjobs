@@ -22,6 +22,8 @@
       >
     </div>
 
+    {{ $categorias }}
+
     <button
       type="submit"
       class="bg-teal-500 hover:bg-teal-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline rounded-lg"
