@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('styles')
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.min.css"
+    integrity="sha512-zYqhQjtcNMt8/h4RJallhYRev/et7+k/HDyry20li5fWSJYSExP9O07Ung28MUuXDneIFg0f2/U3HJZWsTNAiw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+@endsection
+
 @section('navegacion')
   @include('ui.adminnav')
 @endsection
@@ -39,7 +49,7 @@
           disabled
           selected
         >-- SELECCIONA UNA CATEGORIA --</option>
-        @foreach($categorias as $categoria)
+        @foreach ($categorias as $categoria)
           <option value="{{ $categoria->id }}">
             {{ $categoria->nombre }}
           </option>
@@ -65,7 +75,7 @@
           disabled
           selected
         >-- SELECCIONA --</option>
-        @foreach($experiencias as $experiencia)
+        @foreach ($experiencias as $experiencia)
           <option value="{{ $experiencia->id }}">
             {{ $experiencia->nombre }}
           </option>
@@ -91,7 +101,7 @@
           disabled
           selected
         >-- SELECCIONA --</option>
-        @foreach($ubicaciones as $ubicacion)
+        @foreach ($ubicaciones as $ubicacion)
           <option value="{{ $ubicacion->id }}">
             {{ $ubicacion->nombre }}
           </option>
@@ -116,7 +126,7 @@
           disabled
           selected
         >-- SELECCIONA --</option>
-        @foreach($salarios as $salario)
+        @foreach ($salarios as $salario)
           <option value="{{ $salario->id }}">
             {{ $salario->nombre }}
           </option>
@@ -124,9 +134,33 @@
       </select>
     </div>
 
+    <div class="mb-5">
+      <label
+        for="salario"
+        class="block text-gray-700 text-sm mb-2"
+      >Descripción del puesto:</label>
+      <div class="editable"></div>
+    </div>
+
     <button
       type="submit"
       class="bg-teal-500 hover:bg-teal-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline rounded-lg"
     >Publicar vacante</button>
   </form>
+@endsection
+
+@section('scripts')
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js"
+    integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    defer
+  ></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const editor = new MediumEditor('.editable');
+    })
+  </script>
 @endsection
