@@ -139,7 +139,13 @@
         for="salario"
         class="block text-gray-700 text-sm mb-2"
       >Descripción del puesto:</label>
-      <div class="editable"></div>
+      <div class="editable p-3 bg-gray-100 rounded form-input text-gray-700"></div>
+
+      <input
+        type="hidden"
+        name="descripcion"
+        id="descripcion"
+      >
     </div>
 
     <button
@@ -155,12 +161,24 @@
     integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
-    defer
   ></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const editor = new MediumEditor('.editable');
+      const editor = new MediumEditor('.editable', {
+        toolbar: {
+          buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'],
+          static: true,
+          sticky: true,
+        },
+        placeholder: {
+          text: 'Información de la vacante...'
+        }
+      });
+      editor.subscribe('editableInput', (eventObj, editable) => {
+        const contenido = editor.getContent();
+        document.querySelector('#descripcion').value = contenido;
+      })
     })
   </script>
 @endsection
