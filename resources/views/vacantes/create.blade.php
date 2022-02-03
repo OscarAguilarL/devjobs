@@ -11,9 +11,8 @@
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/dropzone.min.css"
-    integrity="sha512-0ns35ZLjozd6e3fJtuze7XJCQXMWmb4kPRbb+H/hacbqu6XfIX0ZRGt6SrmNmv5btrBpbzfdISSd8BAsXJ4t1Q=="
+    integrity="sha256-NkyhTCRnLQ7iMv7F3TQWjVq25kLnjhbKEVPqGJBcCUg="
     crossorigin="anonymous"
-    referrerpolicy="no-referrer"
   />
 @endsection
 
@@ -161,6 +160,8 @@
         class="block text-gray-700 text-sm mb-2"
       >Imágen del puesto:</label>
       <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100"></div>
+
+      <p id="error"></p>
     </div>
 
     <button
@@ -178,10 +179,9 @@
     referrerpolicy="no-referrer"
   ></script>
   <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"
-    integrity="sha512-Mn7ASMLjh+iTYruSWoq2nhoLJ/xcaCbCzFs0ZrltJn7ksDBx+e7r5TS7Ce5WH02jDr0w5CmGgklFoP9pejfCNA=="
+    src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/dropzone.min.js"
+    integrity="sha256-OG/103wXh6XINV06JTPspzNgKNa/jnP1LjPP5Y3XQDY="
     crossorigin="anonymous"
-    referrerpolicy="no-referrer"
   ></script>
 
   <script>
@@ -206,10 +206,30 @@
       // DropZone
       const dropzone = new Dropzone('#dropzoneDevJobs', {
         url: '/vacantes/imagen',
+        dictDefaultMessage: 'Arrastra una imágen',
+        acceptedFiles: '.png,.jpg,.jpeg,.gif,.bpm',
+        addRemoveLinks: true,
+        dictRemoveFile: 'Eliminar archivo',
+        maxFiles: 1,
         headers: {
           'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
         },
-        success: (file, resp) => console.log({ file, resp })
+        success: (file, resp) => {
+          console.log(resp);
+          document.querySelector('#error').textContent = ''
+        },
+        error: (file, resp) => {
+          document.querySelector('#error').textContent = 'Formato no válido'
+        },
+        maxfilesexceeded: function(file) {
+          if( this.files[1] !== null ) {
+            this.removeFile(this.files[0]); // eliminar el archivo anterior
+            this.addFile(file); // Agregar el nuevo archivo
+          }
+        },
+        removedfile: function (file, response) {
+          console.log('archivo borrado: ',file);
+        }
       });
     })
   </script>

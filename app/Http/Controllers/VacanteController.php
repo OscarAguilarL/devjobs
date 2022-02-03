@@ -110,6 +110,6 @@ class VacanteController extends Controller
     {
         $imagen = $request->file('file');
 
-        return $imagen->extension();
+        return 'se subió el archivo';
     }
 }
