@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Salario;
 use App\Vacante;
 use App\Categoria;
-use App\Experiencia;
-use App\Salario;
 use App\Ubicacion;
+use App\Experiencia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class VacanteController extends Controller
 {
@@ -113,5 +114,19 @@ class VacanteController extends Controller
         $imagen->move(public_path('storage/vacantes'), $nombreImagen);
 
         return response()->json(['correcto' => $nombreImagen]);
+    }
+
+
+    // Borrar imagen via ajax
+    public function borrarimagen(Request $request)
+    {
+        if ($request->ajax()){
+            $imagen = $request->get('imagen');
+
+            if (File::exists('storage/vacantes/' . $imagen)) {
+                File::delete('storage/vacantes/' . $imagen);
+            }
+            return response('Imagen eliminada', 200);
+        }
     }
 }

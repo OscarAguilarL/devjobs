@@ -222,10 +222,9 @@
 
           // coloca la resp en un input hidden
           document.querySelector('#imagen').value = resp.correcto
-        },
-        error: function(file, resp) {
-          console.log(resp);
-          document.querySelector('#error').textContent = 'Formato no válido'
+
+          // añadir al objeto de archivo el nombre del servidor
+          file.nombreServidor = resp.correcto;
         },
         maxfilesexceeded: function(file) {
           if( this.files[1] !== null ) {
@@ -234,7 +233,12 @@
           }
         },
         removedfile: function (file, response) {
-          console.log('archivo borrado: ',file);
+          file.previewElement.parentNode.removeChild(file.previewElement)
+          axios
+            .post('/vacantes/borrarimagen', {
+              imagen: file.nombreServidor,
+            })
+            .then(console.log)
         }
       });
     })
