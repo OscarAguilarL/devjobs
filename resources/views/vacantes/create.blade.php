@@ -8,6 +8,13 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/dropzone.min.css"
+    integrity="sha512-0ns35ZLjozd6e3fJtuze7XJCQXMWmb4kPRbb+H/hacbqu6XfIX0ZRGt6SrmNmv5btrBpbzfdISSd8BAsXJ4t1Q=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
 @endsection
 
 @section('navegacion')
@@ -148,6 +155,14 @@
       >
     </div>
 
+    <div class="mb-5">
+      <label
+        for="imagen"
+        class="block text-gray-700 text-sm mb-2"
+      >Imágen del puesto:</label>
+      <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100"></div>
+    </div>
+
     <button
       type="submit"
       class="bg-teal-500 hover:bg-teal-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline rounded-lg"
@@ -162,9 +177,17 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/min/dropzone.min.js"
+    integrity="sha512-Mn7ASMLjh+iTYruSWoq2nhoLJ/xcaCbCzFs0ZrltJn7ksDBx+e7r5TS7Ce5WH02jDr0w5CmGgklFoP9pejfCNA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
 
   <script>
+    Dropzone.autoDiscover = false;
     document.addEventListener('DOMContentLoaded', () => {
+      // MediumEditor
       const editor = new MediumEditor('.editable', {
         toolbar: {
           buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'],
@@ -178,7 +201,16 @@
       editor.subscribe('editableInput', (eventObj, editable) => {
         const contenido = editor.getContent();
         document.querySelector('#descripcion').value = contenido;
-      })
+      });
+
+      // DropZone
+      const dropzone = new Dropzone('#dropzoneDevJobs', {
+        url: '/vacantes/imagen',
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+        },
+        success: (file, resp) => console.log({ file, resp })
+      });
     })
   </script>
 @endsection
