@@ -159,11 +159,31 @@
         for="imagen"
         class="block text-gray-700 text-sm mb-2"
       >Imágen del puesto:</label>
-      <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100"></div>
+      <div
+        id="dropzoneDevJobs"
+        class="dropzone rounded bg-gray-100"
+      ></div>
 
-      <input type="hidden" name="imagen" id="imagen">
+      <input
+        type="hidden"
+        name="imagen"
+        id="imagen"
+      >
 
       <p id="error"></p>
+    </div>
+
+    <div class="mb-5">
+      <label
+        for="skills"
+        class="block text-gray-700 text-sm mb-2"
+      >Habilidades y conocimientos:</label>
+
+      @php
+        $skills = ['HTML5', 'CSS3', 'CSSGrid', 'Flexbox', 'JavaScript', 'jQuery', 'Node', 'Angular', 'VueJS', 'ReactJS', 'React Hooks', 'Redux', 'Apollo', 'GraphQL', 'TypeScript', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'ORM', 'Sequelize', 'Mongoose', 'SQL', 'MVC', 'SASS', 'WordPress', 'Express', 'Deno', 'React Native', 'Flutter', 'MobX', 'C#', 'Ruby on Rails'];
+      @endphp
+
+      <lista-skills :skills="{{ json_encode($skills) }}"></lista-skills>
     </div>
 
     <button
@@ -192,7 +212,9 @@
       // MediumEditor
       const editor = new MediumEditor('.editable', {
         toolbar: {
-          buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'],
+          buttons: ['bold', 'italic', 'underline', 'quote', 'anchor', 'justifyLeft', 'justifyCenter',
+            'justifyRight', 'justifyFull', 'orderedList', 'unorderedList', 'h2', 'h3'
+          ],
           static: true,
           sticky: true,
         },
@@ -227,12 +249,12 @@
           file.nombreServidor = resp.correcto;
         },
         maxfilesexceeded: function(file) {
-          if( this.files[1] !== null ) {
+          if (this.files[1] !== null) {
             this.removeFile(this.files[0]); // eliminar el archivo anterior
             this.addFile(file); // Agregar el nuevo archivo
           }
         },
-        removedfile: function (file, response) {
+        removedfile: function(file, response) {
           file.previewElement.parentNode.removeChild(file.previewElement)
           axios
             .post('/vacantes/borrarimagen', {
