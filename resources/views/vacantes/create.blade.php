@@ -71,11 +71,23 @@
           selected
         >-- SELECCIONA UNA CATEGORIA --</option>
         @foreach ($categorias as $categoria)
-          <option value="{{ $categoria->id }}">
+          <option
+            value="{{ $categoria->id }}"
+            {{ old('categoria') == $categoria->id ? 'selected' : '' }}
+          >
             {{ $categoria->nombre }}
           </option>
         @endforeach
       </select>
+
+      @error('categoria')
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6"
+          role="alert"
+        >
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
 
     </div>
 
@@ -97,11 +109,23 @@
           selected
         >-- SELECCIONA --</option>
         @foreach ($experiencias as $experiencia)
-          <option value="{{ $experiencia->id }}">
+          <option
+            value="{{ $experiencia->id }}"
+            {{ old('experiencia') == $categoria->id ? 'selected' : '' }}
+          >
             {{ $experiencia->nombre }}
           </option>
         @endforeach
       </select>
+
+      @error('experiencia')
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6"
+          role="alert"
+        >
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
 
     </div>
 
@@ -123,11 +147,22 @@
           selected
         >-- SELECCIONA --</option>
         @foreach ($ubicaciones as $ubicacion)
-          <option value="{{ $ubicacion->id }}">
+          <option
+            value="{{ $ubicacion->id }}"
+            {{ old('ubicacion') == $categoria->id ? 'selected' : '' }}
+          >
             {{ $ubicacion->nombre }}
           </option>
         @endforeach
       </select>
+      @error('ubicacion')
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6"
+          role="alert"
+        >
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
     </div>
 
     <div class="mb-5">
@@ -148,11 +183,22 @@
           selected
         >-- SELECCIONA --</option>
         @foreach ($salarios as $salario)
-          <option value="{{ $salario->id }}">
+          <option
+            value="{{ $salario->id }}"
+            {{ old('salario') == $categoria->id ? 'selected' : '' }}
+          >
             {{ $salario->nombre }}
           </option>
         @endforeach
       </select>
+      @error('salario')
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6"
+          role="alert"
+        >
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
     </div>
 
     <div class="mb-5">
