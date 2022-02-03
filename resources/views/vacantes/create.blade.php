@@ -161,6 +161,8 @@
       >Imágen del puesto:</label>
       <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100"></div>
 
+      <input type="hidden" name="imagen" id="imagen">
+
       <p id="error"></p>
     </div>
 
@@ -214,11 +216,15 @@
         headers: {
           'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
         },
-        success: (file, resp) => {
-          console.log(resp);
-          document.querySelector('#error').textContent = ''
+        success: function(file, resp) {
+          console.log(resp.correcto);
+          document.querySelector('#error').textContent = '';
+
+          // coloca la resp en un input hidden
+          document.querySelector('#imagen').value = resp.correcto
         },
-        error: (file, resp) => {
+        error: function(file, resp) {
+          console.log(resp);
           document.querySelector('#error').textContent = 'Formato no válido'
         },
         maxfilesexceeded: function(file) {
