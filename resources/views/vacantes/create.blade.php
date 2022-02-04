@@ -238,8 +238,17 @@
         type="hidden"
         name="imagen"
         id="imagen"
+        value="{{ old('imagen') }}"
       >
 
+      @error('imagen')
+        <div
+          class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6"
+          role="alert"
+        >
+          <span class="block">{{ $message }}</span>
+        </div>
+      @enderror
       <p id="error"></p>
     </div>
 
@@ -313,6 +322,19 @@
         headers: {
           'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
         },
+        init: function() {
+          if (document.querySelector('#imagen').value.trim()) {
+            let imagenPublicada = {};
+            imagenPublicada.size = 1234;
+            imagenPublicada.name = document.querySelector('#imagen').value;
+
+            this.options.addedfile.call(this, imagenPublicada);
+            this.options.thumbnail.call(this, imagenPublicada, `/storage/vacantes/${imagenPublicada.name}`);
+
+            imagenPublicada.previewElement.classList.add('dz-success');
+            imagenPublicada.previewElement.classList.add('dz-complete');
+          }
+        },
         success: function(file, resp) {
           console.log(resp.correcto);
           document.querySelector('#error').textContent = '';
@@ -333,7 +355,7 @@
           file.previewElement.parentNode.removeChild(file.previewElement)
           axios
             .post('/vacantes/borrarimagen', {
-              imagen: file.nombreServidor,
+              imagen: file.nombreServidor ?? document.querySelector('#imagen').value,
             })
             .then(console.log)
         }
