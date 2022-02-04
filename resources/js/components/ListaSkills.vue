@@ -3,9 +3,10 @@
     <ul class="flex flex-wrap justify-center">
       <li
         class="border border-gray-500 px-10 py-3 mb-3 rounded mr-4 cursor-pointer"
+        :class="verificarClaseActiva(skill)"
+        @click="handleClick"
         v-for="(skill) in this.skills"
         :key="skill"
-        @click="handleClick"
       >{{ skill }}</li>
     </ul>
     <input type="hidden" name="skills" id="skills" ref="inputSkills" />
@@ -14,14 +15,20 @@
 
 <script>
 export default {
-  props: {
-    skills: Array
+  props: ['skills', 'oldskills'],
+  data: function () {
+    return {
+      habilidades: new Set()
+    }
   },
-  data: () => ({
-    habilidades: new Set()
-  }),
-  mounted () {
-    console.log(this.skills);
+  created: function () {
+    if (this.oldskills) {
+      const skillsArray = this.oldskills.split(',');
+      skillsArray.forEach(skill => this.habilidades.add(skill));
+    }
+  },
+  mounted: function () {
+    this.$refs.inputSkills.value = this.oldskills;
   },
   methods: {
     handleClick (e) {
@@ -36,6 +43,9 @@ export default {
       // agregar las habilidades al input hidden
       const stringHabilidades = [...this.habilidades]
       this.$refs.inputSkills.value = stringHabilidades
+    },
+    verificarClaseActiva (skill) {
+      return this.habilidades.has(skill) ? 'bg-teal-400' : ''
     }
   }
 }
