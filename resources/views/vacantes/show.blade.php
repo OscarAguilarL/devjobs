@@ -18,6 +18,7 @@
       <p class="block text-gray-700 font-bold my-2">
         Publicado:
         <span class="font-normal">{{ $vacante->created_at->diffForHumans() }}</span>
+        por: <span class="font-normal">{{ $vacante->reclutador->name }}</span>
       </p>
       <p class="block text-gray-700 font-bold my-2">
         Categoría:
