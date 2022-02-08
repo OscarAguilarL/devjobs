@@ -51,11 +51,12 @@
         href="/storage/vacantes/{{ $vacante->imagen }}"
         data-lightbox="imagen"
         data-title="Vacante: {{ $vacante->titulo }}"
+        class="block w-40 mt-10"
       >
         <img
           src="/storage/vacantes/{{ $vacante->imagen }}"
           alt="{{ $vacante->titulo }}"
-          class="w-40 mt-10"
+          class="w-40"
         >
       </a>
 
@@ -65,12 +66,6 @@
       </div>
     </div>
 
-    <aside class="md:w-2/5 bg-teal-500 p-5 rounded m-3">
-      <h2 class="text-2xl my-3 text-white uppercase text-center">Contacta al reclutador</h2>
-
-      <form action="">
-
-      </form>
-    </aside>
+    @include('ui.contacto')
   </div>
 @endsection
