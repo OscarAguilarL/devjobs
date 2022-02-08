@@ -72,7 +72,7 @@
                       class="text-red-600 hover:text-red-900  mr-5"
                     >Eliminar</a>
                     <a
-                      href=""
+                      href="{{ route('vacantes.show', ['vacante' => $vacante->id]) }}"
                       class="text-blue-600 hover:text-blue-900"
                     >Ver</a>
                   </td>
