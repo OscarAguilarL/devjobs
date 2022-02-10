@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Vacante;
 use App\Candidato;
 use Illuminate\Http\Request;
+use App\Notifications\NuevoCandidato;
 
 class CandidatoController extends Controller
 {
@@ -61,27 +62,31 @@ class CandidatoController extends Controller
             'cv' => $nombreArchivo,
         ]);
 
-        //* una forma
-        // $candidato = new Candidato();
-        // $candidato->nombre = $data['nombre'];
-        // $candidato->email = $data['email'];
-        // $candidato->vacante_id = $data['vacante_id'];
-        // $candidato->cv = '123.pdf';
+        $reclutador = $vacante->reclutador;
+        $reclutador->notify(new NuevoCandidato());
 
-        // //* segunda forma
-        // $candidato = new Candidato($data);
-        // $candidato->cv = '123.pdf';
-
-        //* tercer forma
-        // $candidato = new Candidato();
-        // $candidato->fill($data);
-        // $candidato->cv = '123.pdf';
-
-        // $candidato->save();
 
         return back()
             ->with('estado', "Te postulaste al empleo '$vacante->titulo' correctamente");
     }
+
+    //* una forma
+    // $candidato = new Candidato();
+    // $candidato->nombre = $data['nombre'];
+    // $candidato->email = $data['email'];
+    // $candidato->vacante_id = $data['vacante_id'];
+    // $candidato->cv = '123.pdf';
+
+    // //* segunda forma
+    // $candidato = new Candidato($data);
+    // $candidato->cv = '123.pdf';
+
+    //* tercer forma
+    // $candidato = new Candidato();
+    // $candidato->fill($data);
+    // $candidato->cv = '123.pdf';
+
+    // $candidato->save();
 
     /**
      * Display the specified resource.
