@@ -63,7 +63,7 @@ class CandidatoController extends Controller
         ]);
 
         $reclutador = $vacante->reclutador;
-        $reclutador->notify(new NuevoCandidato());
+        $reclutador->notify(new NuevoCandidato($vacante->titulo));
 
 
         return back()

@@ -2,10 +2,11 @@
 
 namespace App\Notifications;
 
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class NuevoCandidato extends Notification
 {
@@ -16,9 +17,9 @@ class NuevoCandidato extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($vacante)
     {
-        //
+        $this->vacante = $vacante;
     }
 
     /**
@@ -41,7 +42,8 @@ class NuevoCandidato extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('Haz recibido un nuevo candidato a tu vacante')
+            ->line('Haz recibido un nuevo candidato a tu vacante:')
+            ->line(Str::upper($this->vacante))
             ->action('Hecha un vistazo a tus candidatos', url('/'))
             ->line('Gracias por utilizar devJobs');
     }
