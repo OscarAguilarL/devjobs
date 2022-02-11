@@ -1923,7 +1923,6 @@ __webpack_require__.r(__webpack_exports__);
     eliminarVacante: function eliminarVacante() {
       var _this = this;
 
-      console.log('eliminando', this.vacanteId);
       this.$swal.fire({
         title: '¿Deseas eliminar esta vacante?',
         text: 'Esta acción no puede ser deshecha',
@@ -1936,9 +1935,20 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.isConfirmed) {
           // envíar petición via axios
-          _this.$swal.fire({
-            icon: 'success',
-            title: 'Vacante eliminada'
+          axios.post("/vacantes/".concat(_this.vacanteId), {
+            id: _this.vacanteId,
+            _method: 'delete'
+          }).then(function (resp) {
+            _this.$swal.fire({
+              icon: 'success',
+              title: 'Vacante eliminada',
+              text: resp.data.mensaje
+            }); // eliminar la vacante del DOM
+
+
+            _this.$el.parentNode.parentNode.parentNode.removeChild(_this.$el.parentNode.parentNode);
+          })["catch"](function (err) {
+            return console.log(err);
           });
         }
       });

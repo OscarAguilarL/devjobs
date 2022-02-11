@@ -12,8 +12,6 @@
     },
     methods: {
       eliminarVacante() {
-        console.log('eliminando', this.vacanteId);
-
         this.$swal
           .fire({
             title: '¿Deseas eliminar esta vacante?',
@@ -28,14 +26,27 @@
           .then((result) => {
             if (result.isConfirmed) {
               // envíar petición via axios
+              axios
+                .post(`/vacantes/${this.vacanteId}`, {
+                  id: this.vacanteId,
+                  _method: 'delete',
+                })
+                .then((resp) => {
+                  this.$swal.fire({
+                    icon: 'success',
+                    title: 'Vacante eliminada',
+                    text: resp.data.mensaje,
+                  })
 
-              this.$swal.fire({
-                icon: 'success',
-                title: 'Vacante eliminada',
-              });
+                  // eliminar la vacante del DOM
+                  this.$el.parentNode.parentNode.parentNode.removeChild(
+                    this.$el.parentNode.parentNode
+                  )
+                })
+                .catch((err) => console.log(err))
             }
-          });
+          })
       },
     },
-  };
+  }
 </script>
