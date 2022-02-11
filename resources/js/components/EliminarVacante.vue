@@ -13,6 +13,28 @@
     methods: {
       eliminarVacante() {
         console.log('eliminando', this.vacanteId);
+
+        this.$swal
+          .fire({
+            title: '¿Deseas eliminar esta vacante?',
+            text: 'Esta acción no puede ser deshecha',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar',
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+              // envíar petición via axios
+
+              this.$swal.fire({
+                icon: 'success',
+                title: 'Vacante eliminada',
+              });
+            }
+          });
       },
     },
   };
