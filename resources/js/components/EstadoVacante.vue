@@ -31,6 +31,12 @@ export default {
       }
 
       // Enviar petición con axios
+      axios
+        .post(`/vacantes/${this.vacanteId}`, {
+          estado: this.estadoVacanteData
+        })
+        .then(resp => console.log(resp))
+        .catch(err => console.log(err))
     },
     claseEstadoVacante () {
       return this.estadoVacanteData === 1

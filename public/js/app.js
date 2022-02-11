@@ -1939,6 +1939,14 @@ __webpack_require__.r(__webpack_exports__);
         this.estadoVacanteData = 1;
       } // Enviar petición con axios
 
+
+      axios.post("/vacantes/".concat(this.vacanteId), {
+        estado: this.estadoVacanteData
+      }).then(function (resp) {
+        return console.log(resp);
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     },
     claseEstadoVacante: function claseEstadoVacante() {
       return this.estadoVacanteData === 1 ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800';
