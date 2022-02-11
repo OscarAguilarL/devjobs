@@ -49,12 +49,10 @@
                     </div>
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                    <span
-                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                      {{ $vacante->activa ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' }}"
-                    >
-                      {{ $vacante->activa == 0 ? 'Inactiva' : 'Activa' }}
-                    </span>
+                    <estado-vacante
+                      estado="{{ $vacante->activa }}"
+                      vacante-id="{{ $vacante->id }}"
+                    ></estado-vacante>
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                     <a
