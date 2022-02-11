@@ -30,7 +30,7 @@ class NuevoCandidato extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -46,6 +46,19 @@ class NuevoCandidato extends Notification
             ->line(Str::upper($this->vacante))
             ->action('Hecha un vistazo a tus candidatos', url('/'))
             ->line('Gracias por utilizar devJobs');
+    }
+
+    /**
+     * Notificaciones en la base de datos.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\DatabaseMessage
+     */
+    public function toDatabase($notifiable)
+    {
+        return [
+            'vacante' => $this->vacante
+        ];
     }
 
     /**
