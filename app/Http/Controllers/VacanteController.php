@@ -207,4 +207,14 @@ class VacanteController extends Controller
 
         return response()->json(['ok' => true]);
     }
+
+    public function buscar()
+    {
+        return 'buscando';
+    }
+
+    public function resultados()
+    {
+        return 'mostrando resultados';
+    }
 }

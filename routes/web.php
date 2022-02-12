@@ -46,4 +46,6 @@ Route::get('/candidatos/{id}', 'CandidatoController@index')->name('candidatos.in
 Route::post('/candidatos/store', 'CandidatoController@store')->name('candidatos.store');
 
 // Muestra los trabajos en el frontend sin la autenticación
+Route::post('/search', 'VacanteController@buscar')->name('vacante.buscar');
+Route::get('/vacantes/search', 'VacanteController@resultados')->name('vacante.resultados');
 Route::get('/vacantes/{vacante}', 'VacanteController@show')->name('vacantes.show');
