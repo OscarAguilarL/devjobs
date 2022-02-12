@@ -35,7 +35,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/notificaciones', 'NotificationesController')->name('notificaciones');
 });
 
+// Página de inicio
 Route::get('/', 'InicioController')->name('inicio');
+
+// Categorias
+Route::get('/categorias/{categoria}', 'CategoriaController@show')->name('categorias.show');
 
 // Enviar datos para una vacante
 Route::get('/candidatos/{id}', 'CandidatoController@index')->name('candidatos.index');
