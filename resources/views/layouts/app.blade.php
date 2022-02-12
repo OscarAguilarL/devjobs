@@ -81,6 +81,10 @@
             @else
 
               <span class="text-gray-300 text-sm pr-4">{{ Auth::user()->name }}</span>
+              <a
+                href="{{ route('vacantes.index') }}"
+                class="text-gray-300 text-sm pr-4 hover:underline"
+              >Dashboard</a>
 
               <a
                 href="{{ route('notificaciones') }}"
