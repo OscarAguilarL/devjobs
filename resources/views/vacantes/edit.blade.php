@@ -24,11 +24,13 @@
   <h1 class="text-2xl text-center mt-5">Editar Vacante: {{ $vacante->titulo }}</h1>
 
   <form
-    class="max-w-lg mx-auto my-10"
-    action="{{ route('vacantes.store') }}"
+    action="{{ route('vacantes.update', ['vacante' => $vacante->id]) }}"
     method="POST"
+    class="max-w-lg mx-auto my-10"
   >
     @csrf
+    @method('PUT')
+
     <div class="mb-5">
       <label
         for="titulo"
@@ -40,7 +42,6 @@
         class="p-3 bg-gray-100 rounded-sm form-input w-full @error('titulo') border-red-500 border @enderror"
         name="titulo"
         value="{{ $vacante->titulo }}"
-        placeholder="Desarrollador Web"
       >
 
       @error('titulo')
@@ -60,7 +61,6 @@
       >Categoria:</label>
 
       <select
-        name="categoria"
         id="categoria"
         class="block appearance-none w-full
                border border-gray-200 text-gray-700 rounded leading-tight
@@ -88,7 +88,6 @@
           <span class="block">{{ $message }}</span>
         </div>
       @enderror
-
     </div>
 
     <div class="mb-5">
@@ -98,7 +97,6 @@
       >Experiencia:</label>
 
       <select
-        name="experiencia"
         id="experiencia"
         class="block appearance-none w-full
                border border-gray-200 text-gray-700 rounded leading-tight
@@ -110,8 +108,8 @@
         >-- SELECCIONA --</option>
         @foreach ($experiencias as $experiencia)
           <option
+            {{ $vacante->experiencia_id == $experiencia->id ? 'selected' : '' }}
             value="{{ $experiencia->id }}"
-            {{ $vacante->experiencia_id == $categoria->id ? 'selected' : '' }}
           >
             {{ $experiencia->nombre }}
           </option>
@@ -126,7 +124,6 @@
           <span class="block">{{ $message }}</span>
         </div>
       @enderror
-
     </div>
 
     <div class="mb-5">
@@ -136,7 +133,6 @@
       >Ubicación:</label>
 
       <select
-        name="ubicacion"
         id="ubicacion"
         class="block appearance-none w-full
                border border-gray-200 text-gray-700 rounded leading-tight
@@ -148,8 +144,8 @@
         >-- SELECCIONA --</option>
         @foreach ($ubicaciones as $ubicacion)
           <option
+            {{ $vacante->ubicacion_id == $ubicacion->id ? 'selected' : '' }}
             value="{{ $ubicacion->id }}"
-            {{ $vacante->ubicacion_id == $categoria->id ? 'selected' : '' }}
           >
             {{ $ubicacion->nombre }}
           </option>
@@ -172,7 +168,6 @@
       >Salario:</label>
 
       <select
-        name="salario"
         id="salario"
         class="block appearance-none w-full
                border border-gray-200 text-gray-700 rounded leading-tight
@@ -184,8 +179,8 @@
         >-- SELECCIONA --</option>
         @foreach ($salarios as $salario)
           <option
+            {{ $vacante->salario_id == $salario->id ? 'selected' : '' }}
             value="{{ $salario->id }}"
-            {{ $vacante->salario_id == $categoria->id ? 'selected' : '' }}
           >
             {{ $salario->nombre }}
           </option>
@@ -203,7 +198,7 @@
 
     <div class="mb-5">
       <label
-        for="salario"
+        for="descripcion"
         class="block text-gray-700 text-sm mb-2"
       >Descripción del puesto:</label>
       <div class="editable p-3 bg-gray-100 rounded form-input text-gray-700"></div>
