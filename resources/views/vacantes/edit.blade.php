@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-  <h1 class="text-2xl text-center mt-5">Editar Vacante</h1>
+  <h1 class="text-2xl text-center mt-5">Editar Vacante: {{ $vacante->titulo }}</h1>
 
   <form
     class="max-w-lg mx-auto my-10"
@@ -39,7 +39,7 @@
         type="text"
         class="p-3 bg-gray-100 rounded-sm form-input w-full @error('titulo') border-red-500 border @enderror"
         name="titulo"
-        value="{{ old('titulo') }}"
+        value="{{ $vacante->titulo }}"
         placeholder="Desarrollador Web"
       >
 
@@ -73,7 +73,7 @@
         @foreach ($categorias as $categoria)
           <option
             value="{{ $categoria->id }}"
-            {{ old('categoria') == $categoria->id ? 'selected' : '' }}
+            {{ $vacante->categoria_id == $categoria->id ? 'selected' : '' }}
           >
             {{ $categoria->nombre }}
           </option>
@@ -111,7 +111,7 @@
         @foreach ($experiencias as $experiencia)
           <option
             value="{{ $experiencia->id }}"
-            {{ old('experiencia') == $categoria->id ? 'selected' : '' }}
+            {{ $vacante->experiencia_id == $categoria->id ? 'selected' : '' }}
           >
             {{ $experiencia->nombre }}
           </option>
@@ -149,7 +149,7 @@
         @foreach ($ubicaciones as $ubicacion)
           <option
             value="{{ $ubicacion->id }}"
-            {{ old('ubicacion') == $categoria->id ? 'selected' : '' }}
+            {{ $vacante->ubicacion_id == $categoria->id ? 'selected' : '' }}
           >
             {{ $ubicacion->nombre }}
           </option>
@@ -185,7 +185,7 @@
         @foreach ($salarios as $salario)
           <option
             value="{{ $salario->id }}"
-            {{ old('salario') == $categoria->id ? 'selected' : '' }}
+            {{ $vacante->salario_id == $categoria->id ? 'selected' : '' }}
           >
             {{ $salario->nombre }}
           </option>
@@ -212,7 +212,7 @@
         type="hidden"
         name="descripcion"
         id="descripcion"
-        value="{{ old('descripcion') }}"
+        value="{!! $vacante->descripcion !!}"
       >
       @error('descripcion')
         <div
@@ -238,7 +238,7 @@
         type="hidden"
         name="imagen"
         id="imagen"
-        value="{{ old('imagen') }}"
+        value="{{ $vacante->imagen }}"
       >
 
       @error('imagen')
@@ -264,7 +264,7 @@
 
       <lista-skills
         :skills="{{ json_encode($skills) }}"
-        :oldskills="{{ json_encode(old('skills')) }}"
+        :oldskills="{{ json_encode($vacante->skills) }}"
       ></lista-skills>
       @error('skills')
         <div
@@ -340,6 +340,7 @@
             let imagenPublicada = {};
             imagenPublicada.size = 1234;
             imagenPublicada.name = document.querySelector('#imagen').value;
+            imagenPublicada.nombreServidor = document.querySelector('#imagen').value
 
             this.options.addedfile.call(this, imagenPublicada);
             this.options.thumbnail.call(this, imagenPublicada, `/storage/vacantes/${imagenPublicada.name}`);
@@ -368,7 +369,7 @@
           file.previewElement.parentNode.removeChild(file.previewElement)
           axios
             .post('/vacantes/borrarimagen', {
-              imagen: file.nombreServidor ?? document.querySelector('#imagen').value,
+              imagen: file.nombreServidor
             })
             .then(console.log)
         }

@@ -108,7 +108,8 @@ class VacanteController extends Controller
         $ubicaciones = Ubicacion::all();
         $salarios = Salario::all();
 
-        return view('vacantes.edit', compact('vacante'))
+        return view('vacantes.edit')
+            ->with('vacante', $vacante)
             ->with('categorias', $categorias)
             ->with('experiencias', $experiencias)
             ->with('ubicaciones', $ubicaciones)
