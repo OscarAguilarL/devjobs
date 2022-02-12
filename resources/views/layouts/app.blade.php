@@ -41,7 +41,7 @@
   >
 </head>
 
-<body class="bg-grey-200 min-h-screen leading-none">
+<body class="bg-gray-200 min-h-screen leading-none">
 
   @if (session('estado'))
     <div class="bg-teal-500 p-8 text-center text-white font-bold uppercase">
